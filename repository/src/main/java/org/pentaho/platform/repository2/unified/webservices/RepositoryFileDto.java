@@ -23,11 +23,9 @@ package org.pentaho.platform.repository2.unified.webservices;
 import org.pentaho.platform.api.repository2.unified.RepositoryFile;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /*!
  * This program is free software; you can redistribute it and/or modify it under the
@@ -50,8 +48,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * JAXB-safe version of {@code RepositoryFile}. ({@code RepositoryFile} has no zero-arg constructor and no public
  * mutators.)
  * 
- * @see RepositoryFileAdapter
- * 
  * @author mlowery
  */
 @XmlRootElement
@@ -62,11 +58,11 @@ public class RepositoryFileDto implements Serializable {
 
   private String id;
 
-  private Date createdDate;
+  private String createdDate;
 
   private String creatorId;
 
-  private Date lastModifiedDate;
+  private String lastModifiedDate;
 
   private long fileSize;
 
@@ -91,7 +87,7 @@ public class RepositoryFileDto implements Serializable {
 
   private String lockMessage;
 
-  private Date lockDate;
+  private String lockDate;
 
   private String owner;
 
@@ -116,7 +112,7 @@ public class RepositoryFileDto implements Serializable {
 
   private String originalParentFolderPath;
 
-  private Date deletedDate;
+  private String deletedDate;
 
   private List<LocaleMapDto> localePropertiesMapEntries;
 
@@ -151,12 +147,11 @@ public class RepositoryFileDto implements Serializable {
     this.id = id;
   }
 
-  @XmlJavaTypeAdapter( value = DateAdapter.class )
-  public Date getCreatedDate() {
+  public String getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate( Date createdDate ) {
+  public void setCreatedDate( String createdDate ) {
     this.createdDate = createdDate;
   }
 
@@ -168,12 +163,11 @@ public class RepositoryFileDto implements Serializable {
     this.creatorId = creatorId;
   }
 
-  @XmlJavaTypeAdapter( value = DateAdapter.class )
-  public Date getLastModifiedDate() {
+  public String getLastModifiedDate() {
     return lastModifiedDate;
   }
 
-  public void setLastModifiedDate( Date lastModifiedDate ) {
+  public void setLastModifiedDate( String lastModifiedDate ) {
     this.lastModifiedDate = lastModifiedDate;
   }
 
@@ -265,12 +259,11 @@ public class RepositoryFileDto implements Serializable {
     this.lockMessage = lockMessage;
   }
 
-  @XmlJavaTypeAdapter( value = DateAdapter.class )
-  public Date getLockDate() {
+  public String getLockDate() {
     return lockDate;
   }
 
-  public void setLockDate( Date lockDate ) {
+  public void setLockDate( String lockDate ) {
     this.lockDate = lockDate;
   }
 
@@ -322,12 +315,11 @@ public class RepositoryFileDto implements Serializable {
     this.originalParentFolderPath = originalParentFolderPath;
   }
 
-  @XmlJavaTypeAdapter( value = DateAdapter.class )
-  public Date getDeletedDate() {
+  public String getDeletedDate() {
     return deletedDate;
   }
 
-  public void setDeletedDate( Date deletedDate ) {
+  public void setDeletedDate( String deletedDate ) {
     this.deletedDate = deletedDate;
   }
 

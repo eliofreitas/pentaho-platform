@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.Date;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
@@ -118,7 +119,7 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
         f.setAclNode( v.isAclNode() );
       }
       if ( include( "createDate", memberSet, exclude ) ) {
-        f.setCreatedDate( v.getCreatedDate() );
+        f.setCreatedDate( marshalDate( v.getCreatedDate() ) );
       }
       if ( include( "creatorId", memberSet, exclude ) ) {
         f.setCreatorId( v.getCreatorId() );
@@ -138,7 +139,7 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
         f.setId( v.getId().toString() );
       }
       if ( include( "lastModifiedDate", memberSet, exclude ) ) {
-        f.setLastModifiedDate( v.getLastModifiedDate() );
+        f.setLastModifiedDate( marshalDate( v.getLastModifiedDate() ) );
       }
       if ( include( "locale", memberSet, exclude ) ) {
         f.setLocale( v.getLocale() );
@@ -147,10 +148,10 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
         f.setOriginalParentFolderPath( v.getOriginalParentFolderPath() );
       }
       if ( include( "deletedDate", memberSet, exclude ) ) {
-        f.setDeletedDate( v.getDeletedDate() );
+        f.setDeletedDate( marshalDate( v.getDeletedDate() ) );
       }
       if ( include( "lockDate", memberSet, exclude ) ) {
-        f.setLockDate( v.getLockDate() );
+        f.setLockDate( marshalDate( v.getLockDate() ) );
       }
       if ( include( "locked", memberSet, exclude ) ) {
         f.setLocked( v.isLocked() );
@@ -281,12 +282,38 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
       }
     }
 
-    return builder.path( v.getPath() ).createdDate( v.getCreatedDate() ).creatorId( v.getCreatorId() ).description( v.getDescription() )
-      .folder( v.isFolder() ).fileSize( v.getFileSize() ).lastModificationDate( v.getLastModifiedDate() ).locale( v.getLocale() )
-      .lockDate( v.getLockDate() ).locked( v.isLocked() ).lockMessage( v.getLockMessage() ).lockOwner( v.getLockOwner() )
+
+
+    return builder.path( v.getPath() ).createdDate( unmarshalDate( v.getCreatedDate() ) ).creatorId( v.getCreatorId() ).description( v.getDescription() )
+      .folder( v.isFolder() ).fileSize( v.getFileSize() ).lastModificationDate( unmarshalDate( v.getLastModifiedDate() ) ).locale( v.getLocale() )
+      .lockDate( unmarshalDate( v.getLockDate() ) ).locked( v.isLocked() ).lockMessage( v.getLockMessage() ).lockOwner( v.getLockOwner() )
       .title( v.getTitle() ).versioned( v.isVersioned() ).versionId( v.getVersionId() ).originalParentFolderPath(
-            v.getOriginalParentFolderPath() ).deletedDate( v.getDeletedDate() ).hidden( v.isHidden() ).schedulable( !v
+            v.getOriginalParentFolderPath() ).deletedDate( unmarshalDate( v.getDeletedDate() ) ).hidden( v.isHidden() ).schedulable( !v
                 .isNotSchedulable() ).aclNode( v.isAclNode() ).build();
+  }
+
+  public static Date unmarshalDate( String date ) {
+    DateAdapter adapter = new DateAdapter();
+    if ( date == null || date.length() == 0 ) {
+      return null;
+    }
+    try {
+      return adapter.unmarshal( date );
+    } catch ( Exception e ) {
+      throw new RuntimeException( e );
+    }
+  }
+
+  public static String marshalDate( Date date ) {
+    DateAdapter adapter = new DateAdapter();
+    if ( date == null ) {
+      return "";
+    }
+    try {
+      return adapter.marshal( date );
+    } catch ( Exception e ) {
+      throw new RuntimeException( e );
+    }
   }
 
   private static DefaultUnifiedRepositoryWebService getRepoWs() {

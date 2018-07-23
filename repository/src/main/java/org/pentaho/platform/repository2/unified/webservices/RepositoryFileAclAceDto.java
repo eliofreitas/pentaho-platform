@@ -37,7 +37,7 @@ public class RepositoryFileAclAceDto implements Serializable {
   /**
    * RepositoryFilePermission enum.
    */
-  List<Integer> permissions;
+  private List<Integer> permissions;
 
   public RepositoryFileAclAceDto() {
     super();
