@@ -28,11 +28,11 @@ public class DataPropertyDto implements Serializable {
   /**
    * DataPropertyType enum
    */
-  int type = -1;
+  private int type = -1;
 
-  String value;
+  private String value;
 
-  String name;
+  private String name;
 
   public DataPropertyDto() {
     super();

@@ -38,8 +38,8 @@ public class RepositoryFileAclAceAdapter extends XmlAdapter<RepositoryFileAclAce
 
   public static RepositoryFileAclAceDto toAceDto( RepositoryFileAce v ) {
     RepositoryFileAclAceDto aceDto = new RepositoryFileAclAceDto();
-    aceDto.recipient = v.getSid().getName();
-    aceDto.recipientType = v.getSid().getType().ordinal();
+    aceDto.setRecipient( v.getSid().getName() );
+    aceDto.setRecipientType( v.getSid().getType().ordinal() );
     aceDto.permissions = toIntPerms( v.getPermissions() );
     return aceDto;
   }
@@ -51,7 +51,7 @@ public class RepositoryFileAclAceAdapter extends XmlAdapter<RepositoryFileAclAce
 
   public static RepositoryFileAce toAce( RepositoryFileAclAceDto v ) {
     return new RepositoryFileAce(
-        new RepositoryFileSid( v.recipient, RepositoryFileSid.Type.values()[v.recipientType] ),
+        new RepositoryFileSid( v.getRecipient(), RepositoryFileSid.Type.values()[v.getRecipientType()] ),
       toPerms( v.permissions ) );
   }
 

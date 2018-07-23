@@ -30,9 +30,9 @@ import java.util.List;
 public class RepositoryFileTreeDto implements Serializable {
   private static final long serialVersionUID = -4222089807149018286L;
 
-  RepositoryFileDto file;
+  private RepositoryFileDto file;
 
-  List<RepositoryFileTreeDto> children;
+  private List<RepositoryFileTreeDto> children;
 
   public RepositoryFileTreeDto() {
   }

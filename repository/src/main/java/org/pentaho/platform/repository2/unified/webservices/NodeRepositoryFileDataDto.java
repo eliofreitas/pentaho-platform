@@ -29,7 +29,7 @@ public class NodeRepositoryFileDataDto implements Serializable {
     super();
   }
 
-  DataNodeDto node;
+  private DataNodeDto node;
 
   public DataNodeDto getNode() {
     return node;

@@ -106,70 +106,70 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
     // no longer exists, so it returns null
     try {
       if ( include( "name", memberSet, exclude ) ) {
-        f.name = v.getName();
+        f.setName( v.getName() );
       }
       if ( include( "path", memberSet, exclude ) ) {
-        f.path = v.getPath();
+        f.setPath( v.getPath() );
       }
       if ( include( "hidden", memberSet, exclude ) ) {
-        f.hidden = v.isHidden();
+        f.setHidden( v.isHidden() );
       }
       if ( include( "aclNode", memberSet, exclude ) ) {
-        f.aclNode = v.isAclNode();
+        f.setAclNode( v.isAclNode() );
       }
       if ( include( "createDate", memberSet, exclude ) ) {
-        f.createdDate = v.getCreatedDate();
+        f.setCreatedDate( v.getCreatedDate() );
       }
       if ( include( "creatorId", memberSet, exclude ) ) {
-        f.creatorId = v.getCreatorId();
+        f.setCreatorId( v.getCreatorId() );
       }
       if ( include( "fileSize", memberSet, exclude ) ) {
-        f.fileSize = v.getFileSize();
+        f.setFileSize( v.getFileSize() );
       }
       if ( include( "description", memberSet, exclude ) ) {
-        f.description = v.getDescription();
+        f.setDescription( v.getDescription() );
       }
       if ( include( "folder", memberSet, exclude ) ) {
-        f.folder = v.isFolder();
+        f.setFolder( v.isFolder() );
       }
       //The include check is intentionally omitted on the Id field because
       //it must be present or the tree rest service call will error
       if ( v.getId() != null ) {
-        f.id = v.getId().toString();
+        f.setId( v.getId().toString() );
       }
       if ( include( "lastModifiedDate", memberSet, exclude ) ) {
-        f.lastModifiedDate = v.getLastModifiedDate();
+        f.setLastModifiedDate( v.getLastModifiedDate() );
       }
       if ( include( "locale", memberSet, exclude ) ) {
-        f.locale = v.getLocale();
+        f.setLocale( v.getLocale() );
       }
       if ( include( "originalParentFolderPath", memberSet, exclude ) ) {
-        f.originalParentFolderPath = v.getOriginalParentFolderPath();
+        f.setOriginalParentFolderPath( v.getOriginalParentFolderPath() );
       }
       if ( include( "deletedDate", memberSet, exclude ) ) {
-        f.deletedDate = v.getDeletedDate();
+        f.setDeletedDate( v.getDeletedDate() );
       }
       if ( include( "lockDate", memberSet, exclude ) ) {
-        f.lockDate = v.getLockDate();
+        f.setLockDate( v.getLockDate() );
       }
       if ( include( "locked", memberSet, exclude ) ) {
-        f.locked = v.isLocked();
+        f.setLocked( v.isLocked() );
       }
       if ( include( "lockMessage", memberSet, exclude ) ) {
-        f.lockMessage = v.getLockMessage();
+        f.setLockMessage( v.getLockMessage() );
       }
       if ( include( "lockOwner", memberSet, exclude ) ) {
-        f.lockOwner = v.getLockOwner();
+        f.setLockOwner( v.getLockOwner() );
       }
       if ( include( "title", memberSet, exclude ) ) {
-        f.title = v.getTitle();
+        f.setTitle( v.getTitle() );
       }
       if ( include( "versioned", memberSet, exclude ) ) {
-        f.versioned = v.isVersioned();
+        f.setVersioned( v.isVersioned() );
       }
       if ( include( "versionId", memberSet, exclude ) ) {
         if ( v.getVersionId() != null ) {
-          f.versionId = v.getVersionId().toString();
+          f.setVersionId( v.getVersionId().toString() );
         }
       }
     } catch ( NullPointerException e ) {
@@ -181,10 +181,10 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
     if ( includeAcls ) {
       if ( v.getId() != null ) {
         try {
-          f.repositoryFileAclDto = getRepoWs().getAcl( v.getId().toString() );
-          if ( f.repositoryFileAclDto.isEntriesInheriting() ) {
+          f.setRepositoryFileAclDto( getRepoWs().getAcl( v.getId().toString() ) );
+          if ( f.getRepositoryFileAclDto().isEntriesInheriting() ) {
             List<RepositoryFileAclAceDto> aces = getRepoWs().getEffectiveAces( v.getId().toString() );
-            f.repositoryFileAclDto.setAces( aces, f.repositoryFileAclDto.isEntriesInheriting() );
+            f.getRepositoryFileAclDto().setAces( aces, f.getRepositoryFileAclDto().isEntriesInheriting() );
           }
         } catch ( Exception e ) {
           e.printStackTrace();
@@ -196,7 +196,7 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
         if ( id != null ) {
           RepositoryFileAclDto acl = getRepoWs().getAcl( "" + id );
           if ( acl != null ) {
-            f.owner = acl.getOwner();
+            f.setOwner( acl.getOwner() );
           }
         }
       }
@@ -204,7 +204,7 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
 
     if ( include( "locales", memberSet, exclude ) ) {
       if ( v.getLocalePropertiesMap() != null ) {
-        f.localePropertiesMapEntries = new ArrayList<LocaleMapDto>();
+        f.setLocalePropertiesMapEntries( new ArrayList<LocaleMapDto>() );
         for ( Map.Entry<String, Properties> entry : v.getLocalePropertiesMap().entrySet() ) {
 
           LocaleMapDto localeMapDto = new LocaleMapDto();
@@ -220,7 +220,7 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
           localeMapDto.setLocale( entry.getKey() );
           localeMapDto.setProperties( valuesDto );
 
-          f.localePropertiesMapEntries.add( localeMapDto );
+          f.getLocalePropertiesMapEntries().add( localeMapDto );
         }
       }
     }
@@ -257,16 +257,16 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
       return null;
     }
     RepositoryFile.Builder builder = null;
-    if ( v.id != null ) {
-      builder = new RepositoryFile.Builder( v.id, v.name );
+    if ( v.getId() != null ) {
+      builder = new RepositoryFile.Builder( v.getId(), v.getName() );
     } else {
-      builder = new RepositoryFile.Builder( v.name );
+      builder = new RepositoryFile.Builder( v.getName() );
     }
-    if ( v.ownerType != -1 ) {
-      new RepositoryFileSid( v.owner, RepositoryFileSid.Type.values()[ v.ownerType ] );
+    if ( v.getOwnerType() != -1 ) {
+      new RepositoryFileSid( v.getOwner(), RepositoryFileSid.Type.values()[ v.getOwnerType() ] );
     }
-    if ( v.localePropertiesMapEntries != null ) {
-      for ( LocaleMapDto localeMapDto : v.localePropertiesMapEntries ) {
+    if ( v.getLocalePropertiesMapEntries() != null ) {
+      for ( LocaleMapDto localeMapDto : v.getLocalePropertiesMapEntries() ) {
 
         String locale = localeMapDto.getLocale();
         Properties localeProperties = new Properties();
@@ -281,12 +281,12 @@ public class RepositoryFileAdapter extends XmlAdapter<RepositoryFileDto, Reposit
       }
     }
 
-    return builder.path( v.path ).createdDate( v.createdDate ).creatorId( v.creatorId ).description( v.description )
-      .folder( v.folder ).fileSize( v.fileSize ).lastModificationDate( v.lastModifiedDate ).locale( v.locale )
-      .lockDate( v.lockDate ).locked( v.locked ).lockMessage( v.lockMessage ).lockOwner( v.lockOwner )
-      .title( v.title ).versioned( v.versioned ).versionId( v.versionId ).originalParentFolderPath(
-            v.originalParentFolderPath ).deletedDate( v.deletedDate ).hidden( v.hidden ).schedulable( !v
-                .isNotSchedulable() ).aclNode( v.aclNode ).build();
+    return builder.path( v.getPath() ).createdDate( v.getCreatedDate() ).creatorId( v.getCreatorId() ).description( v.getDescription() )
+      .folder( v.isFolder() ).fileSize( v.getFileSize() ).lastModificationDate( v.getLastModifiedDate() ).locale( v.getLocale() )
+      .lockDate( v.getLockDate() ).locked( v.isLocked() ).lockMessage( v.getLockMessage() ).lockOwner( v.getLockOwner() )
+      .title( v.getTitle() ).versioned( v.isVersioned() ).versionId( v.getVersionId() ).originalParentFolderPath(
+            v.getOriginalParentFolderPath() ).deletedDate( v.getDeletedDate() ).hidden( v.isHidden() ).schedulable( !v
+                .isNotSchedulable() ).aclNode( v.isAclNode() ).build();
   }
 
   private static DefaultUnifiedRepositoryWebService getRepoWs() {

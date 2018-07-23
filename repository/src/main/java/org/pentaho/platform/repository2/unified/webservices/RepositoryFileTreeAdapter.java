@@ -84,19 +84,19 @@ public class RepositoryFileTreeAdapter extends XmlAdapter<RepositoryFileTreeDto,
   @Override
   public RepositoryFileTree unmarshal( final RepositoryFileTreeDto v ) {
     List<RepositoryFileTree> children = null;
-    if ( v.children != null ) {
+    if ( v.getChildren() != null ) {
       children = new ArrayList<RepositoryFileTree>();
-      for ( RepositoryFileTreeDto child : v.children ) {
+      for ( RepositoryFileTreeDto child : v.getChildren() ) {
         children.add( unmarshal( child ) );
       }
     }
 
-    RepositoryFileTree repositoryFileTree = new RepositoryFileTree( RepositoryFileAdapter.toFile( v.file ), children );
-    if ( v.file.getVersioningEnabled() != null ) {
-      repositoryFileTree.setVersioningEnabled( v.file.getVersioningEnabled() );
+    RepositoryFileTree repositoryFileTree = new RepositoryFileTree( RepositoryFileAdapter.toFile( v.getFile() ), children );
+    if ( v.getFile().getVersioningEnabled() != null ) {
+      repositoryFileTree.setVersioningEnabled( v.getFile().getVersioningEnabled() );
     }
-    if ( v.file.getVersionCommentEnabled() != null ) {
-      repositoryFileTree.setVersionCommentEnabled( v.file.getVersionCommentEnabled() );
+    if ( v.getFile().getVersionCommentEnabled() != null ) {
+      repositoryFileTree.setVersionCommentEnabled( v.getFile().getVersionCommentEnabled() );
     }
     return repositoryFileTree;
   }

@@ -25,14 +25,14 @@ import java.util.List;
 
 public class RepositoryFileAclAceDto implements Serializable {
   private static final long serialVersionUID = 3274897756057989184L;
-  String recipient;
-  String tenantPath;
-  boolean modifiable = true;
+  private String recipient;
+  private String tenantPath;
+  private boolean modifiable = true;
 
   /**
    * RepositoryFileSid.Type enum.
    */
-  int recipientType = -1;
+  private int recipientType = -1;
 
   /**
    * RepositoryFilePermission enum.

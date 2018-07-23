@@ -58,69 +58,69 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 public class RepositoryFileDto implements Serializable {
   private static final long serialVersionUID = 3578911355440278525L;
 
-  String name;
+  private String name;
 
-  String id;
+  private String id;
 
-  Date createdDate;
+  private Date createdDate;
 
-  String creatorId;
+  private String creatorId;
 
-  Date lastModifiedDate;
+  private Date lastModifiedDate;
 
-  long fileSize;
+  private long fileSize;
 
-  boolean folder;
+  private boolean folder;
 
-  String path;
+  private String path;
 
-  boolean hidden = RepositoryFile.HIDDEN_BY_DEFAULT;
+  private boolean hidden = RepositoryFile.HIDDEN_BY_DEFAULT;
 
-  boolean notSchedulable = !RepositoryFile.SCHEDULABLE_BY_DEFAULT;
+  private boolean notSchedulable = !RepositoryFile.SCHEDULABLE_BY_DEFAULT;
 
-  boolean aclNode;
+  private boolean aclNode;
 
   //This is the versioned property stored in the repo
-  boolean versioned;
+  private boolean versioned;
 
-  String versionId;
+  private String versionId;
 
-  boolean locked;
+  private boolean locked;
 
-  String lockOwner;
+  private String lockOwner;
 
-  String lockMessage;
+  private String lockMessage;
 
-  Date lockDate;
+  private Date lockDate;
 
-  String owner;
+  private String owner;
 
-  String ownerTenantPath;
+  private String ownerTenantPath;
 
   // If versioning currently enabled for this file (Will be null if not loaded)
-  Boolean versioningEnabled;
+  private Boolean versioningEnabled;
 
   // If version Comments are enabled for this file (Will be null if not loaded)
-  Boolean versionCommentEnabled;
+  private Boolean versionCommentEnabled;
 
   /**
    * RepositoryFileSid.Type enum.
    */
-  int ownerType = -1;
+  private int ownerType = -1;
 
-  String title;
+  private String title;
 
-  String description;
+  private String description;
 
-  String locale;
+  private String locale;
 
-  String originalParentFolderPath;
+  private String originalParentFolderPath;
 
-  Date deletedDate;
+  private Date deletedDate;
 
-  List<LocaleMapDto> localePropertiesMapEntries;
+  private List<LocaleMapDto> localePropertiesMapEntries;
 
-  RepositoryFileAclDto repositoryFileAclDto;
+  private RepositoryFileAclDto repositoryFileAclDto;
 
   public RepositoryFileDto() {
     super();
